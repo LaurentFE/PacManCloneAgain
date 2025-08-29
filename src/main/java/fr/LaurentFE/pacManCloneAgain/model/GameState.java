@@ -1,16 +1,20 @@
 package fr.LaurentFE.pacManCloneAgain.model;
 
+import fr.LaurentFE.pacManCloneAgain.model.entities.PacMan;
 import fr.LaurentFE.pacManCloneAgain.model.map.GameMap;
 
 public class GameState {
 
   public GameMap gameMap;
   private boolean isRunning;
+  public PacMan pacMan;
 
   public GameState() {
     gameMap = new GameMap(GameConfig.DEFAULT_MAP_TILE_HEIGHT,
         GameConfig.DEFAULT_MAP_TILE_WIDTH);
     isRunning = false;
+    pacMan = new PacMan(GameConfig.DEFAULT_PACMAN_POSITION, GameConfig.DEFAULT_ORIENTATION,
+        GameConfig.DEFAULT_MOVE_SPEED, gameMap);
   }
 
   public boolean isRunning() {

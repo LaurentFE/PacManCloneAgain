@@ -2,6 +2,7 @@ package fr.LaurentFE.pacManCloneAgain.view;
 
 import fr.LaurentFE.pacManCloneAgain.model.GameConfig;
 import fr.LaurentFE.pacManCloneAgain.model.GameState;
+import fr.LaurentFE.pacManCloneAgain.model.entities.Orientation;
 import fr.LaurentFE.pacManCloneAgain.model.map.TileIndex;
 import fr.LaurentFE.pacManCloneAgain.model.map.TileType;
 import java.awt.Color;
@@ -13,6 +14,7 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel {
 
   private final GameState gameState;
+  private final GameKeyHandler gameKeyHandler;
 
   public GamePanel(final GameState gameState) {
     this.gameState = gameState;
@@ -20,6 +22,8 @@ public class GamePanel extends JPanel {
         gameState.gameMap.getMapHeightTile() * GameConfig.TILE_SIZE));
     setBackground(Color.BLACK);
     setDoubleBuffered(true);
+    gameKeyHandler = new GameKeyHandler();
+    addKeyListener(gameKeyHandler);
     setFocusable(true);
   }
 
@@ -28,6 +32,7 @@ public class GamePanel extends JPanel {
     Graphics2D g2d = (Graphics2D) g;
 
     drawMap(g2d);
+    drawPacMan(g2d);
   }
 
   private void drawMap(final Graphics2D g2d) {
@@ -430,5 +435,29 @@ public class GamePanel extends JPanel {
       x1 = x * GameConfig.TILE_SIZE + GameConfig.TILE_SIZE / 2 - 2;
     }
     g2d.drawLine(x1, y * GameConfig.TILE_SIZE, x1, (y + 1) * GameConfig.TILE_SIZE);
+  }
+
+  private void drawPacMan(final Graphics2D g2d) {
+    final int mouthStartAngle;
+    g2d.setColor(Color.YELLOW);
+    if (gameState.pacMan.getOrientation() == Orientation.UP) {
+      mouthStartAngle = 90;
+    } else if (gameState.pacMan.getOrientation() == Orientation.RIGHT) {
+      mouthStartAngle = 0;
+    } else if (gameState.pacMan.getOrientation() == Orientation.DOWN) {
+      mouthStartAngle = -90;
+    } else {
+      mouthStartAngle = 180;
+    }
+    g2d.fillArc(gameState.pacMan.getPosition().x,
+        gameState.pacMan.getPosition().y,
+        GameConfig.TILE_SIZE,
+        GameConfig.TILE_SIZE,
+        mouthStartAngle + gameState.pacMan.getCurrentMouthAngle() / 2,
+        360 - gameState.pacMan.getCurrentMouthAngle());
+  }
+
+  public Orientation getNextOrientation() {
+    return gameKeyHandler.getNextOrientation();
   }
 }
