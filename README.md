@@ -1,7 +1,7 @@
 # PacMan clone, again, in Java
 
 ## State of the project
-Starting from scratch, so far only the project skeleton.
+Application can load the level from a file, and display it properly in a JFrame.
 
 ## Context of the project
 ### WHAT
