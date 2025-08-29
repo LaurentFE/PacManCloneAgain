@@ -26,4 +26,20 @@ public class TileIndex {
     y += ti.y;
     return this;
   }
+
+  public TileIndex getTileAbove() {
+    return new TileIndex(x, y - 1);
+  }
+
+  public TileIndex getTileOnRight() {
+    return new TileIndex(x + 1, y);
+  }
+
+  public TileIndex getTileBelow() {
+    return new TileIndex(x, y + 1);
+  }
+
+  public TileIndex getTileOnLeft() {
+    return new TileIndex(x - 1, y);
+  }
 }
