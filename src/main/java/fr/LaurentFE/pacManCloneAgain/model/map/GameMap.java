@@ -81,9 +81,9 @@ public class GameMap {
         }
       }
     }
-      if (ghostHouse != null) {
-          return true;
-      }
+    if (ghostHouse != null) {
+      return true;
+    }
     System.err.println("No GHOSTHOUSE tile defined in tile map");
     return false;
   }
