@@ -1,4 +1,4 @@
-package fr.LaurentFE.pacManCloneAgain.model;
+package fr.LaurentFE.pacManCloneAgain.model.map;
 
 import java.io.IOException;
 import java.nio.file.Files;

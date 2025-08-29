@@ -1,4 +1,4 @@
-package fr.LaurentFE.pacManCloneAgain.model;
+package fr.LaurentFE.pacManCloneAgain.model.map;
 
 public enum TileType {
     PATH,

@@ -1,4 +1,6 @@
-package fr.LaurentFE.pacManCloneAgain.model;
+package fr.LaurentFE.pacManCloneAgain.model.map;
+
+import fr.LaurentFE.pacManCloneAgain.model.GameConfig;
 
 public class Position {
 

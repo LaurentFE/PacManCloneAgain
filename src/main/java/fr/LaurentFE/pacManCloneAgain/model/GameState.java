@@ -1,5 +1,7 @@
 package fr.LaurentFE.pacManCloneAgain.model;
 
+import fr.LaurentFE.pacManCloneAgain.model.map.GameMap;
+
 public class GameState {
 
   public GameMap gameMap;

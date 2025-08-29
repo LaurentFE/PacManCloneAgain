@@ -1,4 +1,5 @@
 package fr.LaurentFE.pacManCloneAgain.model;
+import fr.LaurentFE.pacManCloneAgain.model.map.GameMap;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
