@@ -13,6 +13,7 @@ It aims to have the same final product as the previous PacManClone project, but 
 Developed in Java JDK 21
 
 IDE : https://www.jetbrains.com/idea/ (Community Edition)
+Java Code Style : https://google.github.io/styleguide/javaguide.html (Automated in IDE)
 
 ### WHY
 The goals are :
