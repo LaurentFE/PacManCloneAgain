@@ -39,10 +39,6 @@ public class GameState {
         Color.ORANGE));
   }
 
-  public boolean isRunning() {
-    return isRunning;
-  }
-
   public boolean startGame() {
     if (!isRunning) {
       isRunning = true;
