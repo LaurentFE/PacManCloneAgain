@@ -15,4 +15,8 @@ public class GameConfig {
   public static final int DEFAULT_MOVE_SPEED = TILE_SIZE / 8;
   public static final Position DEFAULT_PACMAN_POSITION = new TileIndex(13, 26).toPosition();
   public static final Orientation DEFAULT_ORIENTATION = Orientation.RIGHT;
+  public static final Position DEFAULT_BLINKY_POSITION = new TileIndex(9, 14).toPosition();
+  public static final Position DEFAULT_INKY_POSITION = new TileIndex(12, 14).toPosition();
+  public static final Position DEFAULT_CLYDE_POSITION = new TileIndex(15, 14).toPosition();
+  public static final Position DEFAULT_PINKY_POSITION = new TileIndex(18, 14).toPosition();
 }
