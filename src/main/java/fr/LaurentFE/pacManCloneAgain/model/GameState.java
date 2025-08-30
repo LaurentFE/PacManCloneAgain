@@ -2,6 +2,7 @@ package fr.LaurentFE.pacManCloneAgain.model;
 
 import fr.LaurentFE.pacManCloneAgain.model.entities.Ghost;
 import fr.LaurentFE.pacManCloneAgain.model.entities.PacMan;
+import fr.LaurentFE.pacManCloneAgain.model.entities.ghostPersonality.Blinky;
 import fr.LaurentFE.pacManCloneAgain.model.map.GameMap;
 import java.awt.Color;
 import java.util.Set;
@@ -30,13 +31,23 @@ public class GameState {
 
   private void instantiateGhosts() {
     ghosts.add(new Ghost(GameConfig.DEFAULT_BLINKY_POSITION, GameConfig.DEFAULT_ORIENTATION,
-        Color.RED));
-    ghosts.add(new Ghost(GameConfig.DEFAULT_PINKY_POSITION, GameConfig.DEFAULT_ORIENTATION,
+        Color.RED, new Blinky(this), gameMap, GameConfig.BLINKY_SCATTER_TILE_INDEX,
+        GameConfig.DEFAULT_MOVE_SPEED));
+    /*ghosts.add(new Ghost(GameConfig.DEFAULT_PINKY_POSITION, GameConfig.DEFAULT_ORIENTATION,
         Color.PINK));
     ghosts.add(new Ghost(GameConfig.DEFAULT_INKY_POSITION, GameConfig.DEFAULT_ORIENTATION,
         Color.CYAN));
     ghosts.add(new Ghost(GameConfig.DEFAULT_CLYDE_POSITION, GameConfig.DEFAULT_ORIENTATION,
-        Color.ORANGE));
+        Color.ORANGE));*/
+  }
+
+  public Ghost getBlinky() {
+    for (Ghost ghost : ghosts) {
+      if (ghost.getChasePersonality() instanceof Blinky) {
+        return ghost;
+      }
+    }
+    return null;
   }
 
   public boolean startGame() {

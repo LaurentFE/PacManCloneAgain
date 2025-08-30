@@ -95,16 +95,12 @@ public class PacMan {
   }
 
   private Rectangle getNextPathTileForOrientation(final Orientation nextOrientation) {
-    final TileIndex directionModifier;
-    if (nextOrientation == Orientation.UP) {
-      directionModifier = new TileIndex(0, -1);
-    } else if (nextOrientation == Orientation.LEFT) {
-      directionModifier = new TileIndex(-1, 0);
-    } else if (nextOrientation == Orientation.DOWN) {
-      directionModifier = new TileIndex(0, 1);
-    } else {
-      directionModifier = new TileIndex(1, 0);
-    }
+    final TileIndex directionModifier = switch(nextOrientation) {
+      case UP -> new TileIndex(0, -1);
+      case LEFT -> new TileIndex(-1, 0);
+      case DOWN -> new TileIndex(0, 1);
+      case RIGHT -> new TileIndex(1, 0);
+    };
 
     final TileIndex tileAIndex = new Position(hitBox.x, hitBox.y).toTileIndex()
         .add(directionModifier);

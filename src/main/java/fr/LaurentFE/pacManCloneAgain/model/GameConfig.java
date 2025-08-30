@@ -19,4 +19,8 @@ public class GameConfig {
   public static final Position DEFAULT_INKY_POSITION = new TileIndex(12, 14).toPosition();
   public static final Position DEFAULT_CLYDE_POSITION = new TileIndex(15, 14).toPosition();
   public static final Position DEFAULT_PINKY_POSITION = new TileIndex(18, 14).toPosition();
+  public static final long CHASE_NANO_TIME_DURATION = 20_000_000_000L;
+  public static final long SCATTER_NANO_TIME_DURATION = 3_000_000_000L;
+  public static final long FRIGHTENED_NANO_TIME_DURATION = 5_000_000_000L;
+  public static final TileIndex BLINKY_SCATTER_TILE_INDEX = new TileIndex(0, 0);
 }
