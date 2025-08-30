@@ -2,6 +2,7 @@ package fr.LaurentFE.pacManCloneAgain.controller;
 
 import fr.LaurentFE.pacManCloneAgain.model.GameConfig;
 import fr.LaurentFE.pacManCloneAgain.model.GameState;
+import fr.LaurentFE.pacManCloneAgain.model.entities.Ghost;
 import fr.LaurentFE.pacManCloneAgain.view.GameFrame;
 
 public class GameLogic implements Runnable {
@@ -59,6 +60,9 @@ public class GameLogic implements Runnable {
 
   private void update() {
     gameState.pacMan.update(gameFrame.getNextOrientation());
+    for (Ghost ghost : gameState.ghosts) {
+      ghost.update();
+    }
     gameFrame.repaint();
   }
 }
