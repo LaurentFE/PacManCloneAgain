@@ -4,6 +4,7 @@
 Target results achieved :
 - Have a fully navigable maze
 - Pac-Man can be moved around the maze, respecting constraints
+4 Ghosts are displayed on the maze (but cannot be interacted with, and do not have any behaviour)
 
 ## Context of the project
 ### WHAT

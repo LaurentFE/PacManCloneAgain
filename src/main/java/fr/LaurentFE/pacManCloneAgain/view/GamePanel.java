@@ -2,7 +2,9 @@ package fr.LaurentFE.pacManCloneAgain.view;
 
 import fr.LaurentFE.pacManCloneAgain.model.GameConfig;
 import fr.LaurentFE.pacManCloneAgain.model.GameState;
+import fr.LaurentFE.pacManCloneAgain.model.entities.Ghost;
 import fr.LaurentFE.pacManCloneAgain.model.entities.Orientation;
+import fr.LaurentFE.pacManCloneAgain.model.map.Position;
 import fr.LaurentFE.pacManCloneAgain.model.map.TileIndex;
 import fr.LaurentFE.pacManCloneAgain.model.map.TileType;
 import java.awt.Color;
@@ -33,6 +35,7 @@ public class GamePanel extends JPanel {
 
     drawMap(g2d);
     drawPacMan(g2d);
+    drawGhosts(g2d);
   }
 
   private void drawMap(final Graphics2D g2d) {
@@ -455,6 +458,117 @@ public class GamePanel extends JPanel {
         GameConfig.TILE_SIZE,
         mouthStartAngle + gameState.pacMan.getCurrentMouthAngle() / 2,
         360 - gameState.pacMan.getCurrentMouthAngle());
+  }
+
+  private void drawGhosts(final Graphics2D g2d) {
+    for (Ghost ghost : gameState.ghosts) {
+      drawGhost(g2d, ghost);
+    }
+  }
+
+  private void drawGhost(final Graphics2D g2d, final Ghost ghost) {
+    g2d.setColor(ghost.getColor());
+    drawGhostBody(g2d, ghost);
+    drawGhostSkirt(g2d, ghost);
+    drawGhostEyes(g2d, ghost);
+  }
+
+  private void drawGhostBody(final Graphics2D g2d, final Ghost ghost) {
+    g2d.fillArc(ghost.getPosition().x + GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().y + GameConfig.TILE_SIZE / 16,
+        GameConfig.TILE_SIZE - GameConfig.TILE_SIZE / 8,
+        3 * GameConfig.TILE_SIZE / 4,
+        0,
+        180);
+    g2d.fillRect(ghost.getPosition().x + GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().y + 3 * GameConfig.TILE_SIZE / 8,
+        14 * GameConfig.TILE_SIZE / 16,
+        7 * GameConfig.TILE_SIZE / 16);
+  }
+
+  private void drawGhostSkirt(final Graphics2D g2d, final Ghost ghost) {
+    final int[] x1 = new int[]{ghost.getPosition().x + GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().x + GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().x + 3 * GameConfig.TILE_SIZE / 16};
+    final int[] x2 = new int[]{ghost.getPosition().x + 4 * GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().x + 6 * GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().x + 6 * GameConfig.TILE_SIZE / 16};
+    final int[] x3 = new int[]{ghost.getPosition().x + 10 * GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().x + 10 * GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().x + 12 * GameConfig.TILE_SIZE / 16};
+    final int[] x4 = new int[]{ghost.getPosition().x + 13 * GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().x + 15 * GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().x + 15 * GameConfig.TILE_SIZE / 16};
+    final int[] y1 = new int[]{ghost.getPosition().y + 13 * GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().y + 15 * GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().y + 13 * GameConfig.TILE_SIZE / 16};
+    final int[] y2 = new int[]{ghost.getPosition().y + 13 * GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().y + 13 * GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().y + 15 * GameConfig.TILE_SIZE / 16};
+    g2d.fillPolygon(x1, y1, 3);
+    g2d.fillPolygon(x2, y2, 3);
+    g2d.fillRect(x2[2], y1[0], GameConfig.TILE_SIZE / 16, 2 * GameConfig.TILE_SIZE / 16);
+    g2d.fillRect(x2[2] + 3 * GameConfig.TILE_SIZE / 16, y1[0], GameConfig.TILE_SIZE / 16,
+        2 * GameConfig.TILE_SIZE / 16);
+    g2d.fillPolygon(x3, y1, 3);
+    g2d.fillPolygon(x4, y2, 3);
+  }
+
+  private void drawGhostEyes(final Graphics2D g2d, final Ghost ghost) {
+    g2d.setColor(Color.WHITE);
+    final int eyeHeight = 6 * GameConfig.TILE_SIZE / 16;
+    final int eyeWidth = 4 * GameConfig.TILE_SIZE / 16;
+    final int pupilSize = 2 * GameConfig.TILE_SIZE / 16;
+    final Position leftEyePosition = new Position(
+        ghost.getPosition().x + 4 * GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().y + 4 * GameConfig.TILE_SIZE / 16);
+    final Position rightEyePosition = new Position(GameConfig.TILE_SIZE / 16 + eyeWidth, 0).add(
+        leftEyePosition);
+    final Position leftPupilPosition = new Position(
+        ghost.getPosition().x + 6 * GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().y + 6 * GameConfig.TILE_SIZE / 16);
+    final Position rightPupilPosition = new Position(GameConfig.TILE_SIZE / 16 + eyeWidth, 0).add(
+        leftPupilPosition);
+    final Position[] orientationOffsets = getEyeAndPupilOrientationOffset(ghost.getOrientation());
+
+    leftEyePosition.add(orientationOffsets[0]);
+    leftPupilPosition.add(orientationOffsets[1]);
+    rightEyePosition.add(orientationOffsets[0]);
+    rightPupilPosition.add(orientationOffsets[1]);
+
+    g2d.fillArc(leftEyePosition.x,
+        leftEyePosition.y,
+        eyeWidth, eyeHeight, 0, 360);
+    g2d.fillArc(rightEyePosition.x,
+        rightEyePosition.y,
+        eyeWidth, eyeHeight, 0, 360);
+    g2d.setColor(Color.BLUE);
+    g2d.fillArc(leftPupilPosition.x,
+        leftPupilPosition.y,
+        pupilSize, pupilSize, 0, 360);
+    g2d.fillArc(rightPupilPosition.x,
+        rightPupilPosition.y,
+        pupilSize, pupilSize, 0, 360);
+  }
+
+  private Position[] getEyeAndPupilOrientationOffset(final Orientation orientation) {
+    final Position eyeOrientationOffset;
+    final Position pupilOrientationOffset;
+    if (orientation == Orientation.UP) {
+      eyeOrientationOffset = new Position(-GameConfig.TILE_SIZE / 16, -GameConfig.TILE_SIZE / 8);
+      pupilOrientationOffset = new Position(-GameConfig.TILE_SIZE / 8, -GameConfig.TILE_SIZE / 4);
+    } else if (orientation == Orientation.LEFT) {
+      eyeOrientationOffset = new Position(-GameConfig.TILE_SIZE / 8, 0);
+      pupilOrientationOffset = new Position(-GameConfig.TILE_SIZE / 4, 0);
+    } else if (orientation == Orientation.DOWN) {
+      eyeOrientationOffset = new Position(-GameConfig.TILE_SIZE / 16, GameConfig.TILE_SIZE / 16);
+      pupilOrientationOffset = new Position(-2 * GameConfig.TILE_SIZE / 16,
+          3 * GameConfig.TILE_SIZE / 16);
+    } else {
+      eyeOrientationOffset = new Position(0, 0);
+      pupilOrientationOffset = new Position(0, 0);
+    }
+    return new Position[]{eyeOrientationOffset, pupilOrientationOffset};
   }
 
   public Orientation getNextOrientation() {
