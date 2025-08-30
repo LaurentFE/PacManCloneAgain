@@ -15,10 +15,11 @@ public class GameLogic implements Runnable {
   }
 
   public void startGame() {
-    if (!gameState.isRunning()) {
-      gameState.startGame();
+    if (gameState.startGame()) {
       gameFrame = new GameFrame(gameState);
       startGameThread();
+    } else {
+      throw new RuntimeException("Tried GameLogic.startGame() when game is already running");
     }
   }
 
@@ -40,8 +41,11 @@ public class GameLogic implements Runnable {
 
     while (gameThread != null) {
       if (!gameFrame.isDisplayable()) {
-        gameState.stopGame();
-        stopGameThread();
+        if (gameState.stopGame()) {
+          stopGameThread();
+        } else {
+          throw new RuntimeException("Tried GameLogic.stopGame() when game is not running");
+        }
       }
 
       final long currentTimeNanoSec = System.nanoTime();
