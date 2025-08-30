@@ -17,8 +17,13 @@ public class Blinky implements GhostPersonality {
   public Orientation getNextMovementOrientation() {
     final TileIndex targetTile = gameState.pacMan.getPosition().toTileIndex();
     final Ghost blinky = gameState.getBlinky();
-    final TileIndex nextMoveTile = blinky.getNextMoveTile(targetTile);
+    if (blinky != null) {
+      final TileIndex nextMoveTile = blinky.getNextMoveTile(targetTile);
 
-    return blinky.getOrientationToGoToTile(nextMoveTile);
+      return blinky.getOrientationToGoToTile(nextMoveTile);
+    } else {
+      throw new RuntimeException(
+          "Blinky.getNextMovementOrientation() couldn't find a Blinky instance through GameState.getBlinky()");
+    }
   }
 }
