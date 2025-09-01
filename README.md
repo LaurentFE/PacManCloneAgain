@@ -4,7 +4,11 @@
 Target results achieved :
 - Have a fully navigable maze
 - Pac-Man can be moved around the maze, respecting constraints
-4 Ghosts are displayed on the maze (but cannot be interacted with, and do not have any behaviour)
+- 4 Ghosts chase Pac-Man with different behaviours to reach him
+- Ghosts can chase, disperse, be frightened
+- Pac-Man can eat pellets to increase score
+- Pac-Man can eat a power pellet to make them frightened
+- Game is finished when all pellets have been eaten
 
 ## Context of the project
 ### WHAT
