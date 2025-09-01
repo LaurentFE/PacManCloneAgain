@@ -1,5 +1,6 @@
 package fr.LaurentFE.pacManCloneAgain.view;
 
+import fr.LaurentFE.pacManCloneAgain.model.GameConfig;
 import fr.LaurentFE.pacManCloneAgain.model.entities.Orientation;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -21,19 +22,19 @@ public class GameKeyHandler implements KeyListener {
   public void keyPressed(KeyEvent e) {
     final int keyCode = e.getKeyCode();
     if (keyCode == KeyEvent.VK_UP
-        || keyCode == KeyEvent.VK_Z) {
+        || keyCode == GameConfig.DEFAULT_UP_KEY) {
       nextOrientation = Orientation.UP;
     }
     if (keyCode == KeyEvent.VK_RIGHT
-        || keyCode == KeyEvent.VK_D) {
+        || keyCode == GameConfig.DEFAULT_RIGHT_KEY) {
       nextOrientation = Orientation.RIGHT;
     }
     if (keyCode == KeyEvent.VK_DOWN
-        || keyCode == KeyEvent.VK_S) {
+        || keyCode == GameConfig.DEFAULT_DOWN_KEY) {
       nextOrientation = Orientation.DOWN;
     }
     if (keyCode == KeyEvent.VK_LEFT
-        || keyCode == KeyEvent.VK_Q) {
+        || keyCode == GameConfig.DEFAULT_LEFT_KEY) {
       nextOrientation = Orientation.LEFT;
     }
   }

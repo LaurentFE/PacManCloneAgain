@@ -3,9 +3,14 @@ package fr.LaurentFE.pacManCloneAgain.model;
 import fr.LaurentFE.pacManCloneAgain.model.entities.Orientation;
 import fr.LaurentFE.pacManCloneAgain.model.map.Position;
 import fr.LaurentFE.pacManCloneAgain.model.map.TileIndex;
+import java.awt.event.KeyEvent;
 
 public class GameConfig {
 
+  public static final int DEFAULT_UP_KEY = KeyEvent.VK_Z;
+  public static final int DEFAULT_RIGHT_KEY = KeyEvent.VK_D;
+  public static final int DEFAULT_DOWN_KEY = KeyEvent.VK_S;
+  public static final int DEFAULT_LEFT_KEY = KeyEvent.VK_Q;
   public static final int TILE_SIZE = 32;
   public static final int DEFAULT_MAP_TILE_HEIGHT = 36;
   public static final int DEFAULT_MAP_TILE_WIDTH = 28;

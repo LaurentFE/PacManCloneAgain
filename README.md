@@ -2,7 +2,7 @@
 
 Please enjoy this recreation of the classic arcade game Pac-Man, in Java.\
 Note that by default, the game panel will take ```896*1125 pixels``` in size (not accounting for the window borders around it).\
-If your display is not at a high enough resolution, you can change the ```TILE_SIZE``` from ```32``` to ```16``` in the following file on ```line 9``` :\
+If your display is not at a high enough resolution, you can change the ```TILE_SIZE``` from ```32``` to ```16``` in the following file on ```line 14``` :\
 ```<project folder>/src/main/java/fr/LaurentFE/pacManCloneAgain/model/GameConfig.java```
 
 ## How to run project
@@ -12,11 +12,15 @@ This project if built with Maven, so make also sure to have Maven installed.
 Build and run with command line directly from the project folder :\
 ```mvn clean compile exec:java```\
 
-If you have built the game for the first time, no need to rebuild it everytime, you can simply run :\
+If you have built the game for the first time and did not change the GameConfig since, no need to 
+rebuild it everytime, you can simply run :\
 ```mvn exec:java```
 
 ## Controls
-Move with ```directional arrows``` or ```Z Q S D```
+Move with ```directional arrows``` or ```Z Q S D``` keys.\
+You can edit the keys in the game configuration file :\
+```<project folder>/src/main/java/fr/LaurentFE/pacManCloneAgain/model/GameConfig.java```\
+The keys are defined on lines 10 through 13.
 
 ## State of the project
 All originally intended features are now implemented.
