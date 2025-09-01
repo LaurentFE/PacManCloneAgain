@@ -15,11 +15,11 @@ public class GameKeyHandler implements KeyListener {
   }
 
   @Override
-  public void keyTyped(KeyEvent e) {
+  public void keyTyped(final KeyEvent e) {
   }
 
   @Override
-  public void keyPressed(KeyEvent e) {
+  public void keyPressed(final KeyEvent e) {
     final int keyCode = e.getKeyCode();
     if (keyCode == KeyEvent.VK_UP
         || keyCode == GameConfig.DEFAULT_UP_KEY) {
@@ -40,7 +40,7 @@ public class GameKeyHandler implements KeyListener {
   }
 
   @Override
-  public void keyReleased(KeyEvent e) {
+  public void keyReleased(final KeyEvent e) {
   }
 
   public Orientation getNextOrientation() {

@@ -231,7 +231,7 @@ public class Ghost extends MovingEntity {
   public TileIndex getNextMoveTile(final TileIndex targetTile) {
     TileIndex finalTile = new TileIndex(0, 0);
     int squaredDist = Integer.MAX_VALUE;
-    for (TileIndex consideredTile : getConsideredMoveTiles()) {
+    for (final TileIndex consideredTile : getConsideredMoveTiles()) {
       final int relativeXDist = targetTile.x - consideredTile.x;
       final int relativeYDist = targetTile.y - consideredTile.y;
       final int squaredDistanceToTarget =

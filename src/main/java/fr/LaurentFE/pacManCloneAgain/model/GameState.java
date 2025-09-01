@@ -63,7 +63,7 @@ public class GameState {
   }
 
   public Ghost getBlinky() {
-    for (Ghost ghost : ghosts) {
+    for (final Ghost ghost : ghosts) {
       if (ghost.getChasePersonality() instanceof Blinky) {
         return ghost;
       }
@@ -72,7 +72,7 @@ public class GameState {
   }
 
   public Ghost getPinky() {
-    for (Ghost ghost : ghosts) {
+    for (final Ghost ghost : ghosts) {
       if (ghost.getChasePersonality() instanceof Pinky) {
         return ghost;
       }
@@ -81,7 +81,7 @@ public class GameState {
   }
 
   public Ghost getInky() {
-    for (Ghost ghost : ghosts) {
+    for (final Ghost ghost : ghosts) {
       if (ghost.getChasePersonality() instanceof Inky) {
         return ghost;
       }
@@ -90,7 +90,7 @@ public class GameState {
   }
 
   public Ghost getClyde() {
-    for (Ghost ghost : ghosts) {
+    for (final Ghost ghost : ghosts) {
       if (ghost.getChasePersonality() instanceof Clyde) {
         return ghost;
       }

@@ -30,14 +30,14 @@ public class GameFrame extends JFrame {
   private void addWindowClosingListener() {
     addWindowListener(new WindowAdapter() {
       @Override
-      public void windowClosing(WindowEvent e) {
+      public void windowClosing(final WindowEvent e) {
         confirmClose();
       }
     });
   }
 
   private void confirmClose() {
-    int exitValue = JOptionPane.showConfirmDialog(
+    final int exitValue = JOptionPane.showConfirmDialog(
         null,
         "Are you sure you want to exit ?",
         "Exit",

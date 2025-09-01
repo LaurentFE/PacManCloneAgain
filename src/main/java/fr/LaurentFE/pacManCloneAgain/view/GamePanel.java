@@ -34,7 +34,7 @@ public class GamePanel extends JPanel {
 
   public void paintComponent(final Graphics g) {
     super.paintComponent(g);
-    Graphics2D g2d = (Graphics2D) g;
+    final Graphics2D g2d = (Graphics2D) g;
 
     drawMap(g2d);
     drawPellets(g2d);
@@ -197,8 +197,8 @@ public class GamePanel extends JPanel {
 
   private void drawDoubleHorizontalWall(final boolean pathAbove, final Graphics2D g2d, final int x,
       final int y) {
-    int y1;
-    int y2;
+    final int y1;
+    final int y2;
     if (pathAbove) {
       y1 = y * GameConfig.TILE_SIZE + GameConfig.TILE_SIZE / 2 + 2;
       y2 = y * GameConfig.TILE_SIZE + GameConfig.TILE_SIZE - 1;
@@ -212,8 +212,8 @@ public class GamePanel extends JPanel {
 
   private void drawDoubleVerticalWall(final boolean pathLeft, final Graphics2D g2d, final int x,
       final int y) {
-    int x1;
-    int x2;
+    final int x1;
+    final int x2;
     if (pathLeft) {
       x1 = x * GameConfig.TILE_SIZE + GameConfig.TILE_SIZE / 2 + 2;
       x2 = x * GameConfig.TILE_SIZE + GameConfig.TILE_SIZE - 1;
@@ -427,7 +427,7 @@ public class GamePanel extends JPanel {
 
   private void drawSimpleHorizontalWall(final boolean pathAbove, final Graphics2D g2d, final int x,
       final int y) {
-    int y1;
+    final int y1;
     if (pathAbove) {
       y1 = y * GameConfig.TILE_SIZE + GameConfig.TILE_SIZE / 2 + 2;
     } else {
@@ -438,7 +438,7 @@ public class GamePanel extends JPanel {
 
   private void drawSimpleVerticalWall(final boolean pathLeft, final Graphics2D g2d, final int x,
       final int y) {
-    int x1;
+    final int x1;
     if (pathLeft) {
       x1 = x * GameConfig.TILE_SIZE + GameConfig.TILE_SIZE / 2 + 2;
     } else {
@@ -449,7 +449,7 @@ public class GamePanel extends JPanel {
 
   private void drawPellets(final Graphics2D g2d) {
     g2d.setColor(Color.PINK);
-    for (Pellet pellet : gameState.pellets) {
+    for (final Pellet pellet : gameState.pellets) {
       final Position pelletPosition = pellet.getTileIndex().toPosition();
       if (pellet.isPowerPellet()) {
         g2d.fillOval(pelletPosition.x + GameConfig.DEFAULT_POWER_PELLET_OFFSET,
@@ -497,7 +497,7 @@ public class GamePanel extends JPanel {
   }
 
   private void drawGhosts(final Graphics2D g2d) {
-    for (Ghost ghost : gameState.ghosts) {
+    for (final Ghost ghost : gameState.ghosts) {
       drawGhost(g2d, ghost);
     }
   }
@@ -619,17 +619,17 @@ public class GamePanel extends JPanel {
   private void drawGhostScaredFace(final Graphics2D g2d, final Ghost ghost) {
     g2d.setColor(Color.PINK);
     final int eyeSize = 2 * GameConfig.TILE_SIZE / 16;
-    Position leftEyePosition = new Position(ghost.getPosition().x + 5 * GameConfig.TILE_SIZE / 16,
+    final Position leftEyePosition = new Position(ghost.getPosition().x + 5 * GameConfig.TILE_SIZE / 16,
         ghost.getPosition().y + 6 * GameConfig.TILE_SIZE / 16);
-    Position rightEyeOffset = new Position(3 * GameConfig.TILE_SIZE / 16 + eyeSize, 0);
-    Position rightEyePosition = rightEyeOffset.add(leftEyePosition);
+    final Position rightEyeOffset = new Position(3 * GameConfig.TILE_SIZE / 16 + eyeSize, 0);
+    final Position rightEyePosition = rightEyeOffset.add(leftEyePosition);
     g2d.fillRect(leftEyePosition.x,
         leftEyePosition.y,
         eyeSize, eyeSize);
     g2d.fillRect(rightEyePosition.x,
         rightEyePosition.y,
         eyeSize, eyeSize);
-    Position mouthLeftCorner = new Position(ghost.getPosition().x + 3 * GameConfig.TILE_SIZE / 16,
+    final Position mouthLeftCorner = new Position(ghost.getPosition().x + 3 * GameConfig.TILE_SIZE / 16,
         ghost.getPosition().y + 11 * GameConfig.TILE_SIZE / 16);
     g2d.drawLine(mouthLeftCorner.x,
         mouthLeftCorner.y,
