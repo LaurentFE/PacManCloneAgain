@@ -60,6 +60,22 @@ public class GameFrame extends JFrame {
     dispose();
   }
 
+  public void closeOnDeath() {
+    JOptionPane.showMessageDialog(
+        null,
+        """
+            Oh no !
+            This is Game Over.
+            You got a score of :\s""" + gameState.score,
+        "GAME OVER",
+        JOptionPane.INFORMATION_MESSAGE);
+    dispose();
+  }
+
+  public void resetUserInput() {
+    mainDisplay.resetUserInput();
+  }
+
   public Orientation getNextOrientation() {
     return mainDisplay.getNextOrientation();
   }

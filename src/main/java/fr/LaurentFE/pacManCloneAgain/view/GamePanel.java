@@ -40,7 +40,9 @@ public class GamePanel extends JPanel {
     drawPellets(g2d);
     drawHUD(g2d);
     drawPacMan(g2d);
-    drawGhosts(g2d);
+    if (gameState.pacMan.isAlive()) {
+      drawGhosts(g2d);
+    }
   }
 
   private void drawMap(final Graphics2D g2d) {
@@ -466,9 +468,12 @@ public class GamePanel extends JPanel {
   private void drawHUD(final Graphics2D g2d) {
     final Position scorePosition = new TileIndex(gameState.gameMap.getMapWidthTile() / 2 - 2,
         2).toPosition();
+    final Position livesPosition = new TileIndex(gameState.gameMap.getMapWidthTile() / 2 - 1,
+        gameState.gameMap.getMapHeightTile() - 1).toPosition();
     g2d.setColor(Color.WHITE);
     g2d.setFont(new Font("Power Red And Green", Font.PLAIN, GameConfig.TILE_SIZE));
     g2d.drawString("Score: " + gameState.score, scorePosition.x, scorePosition.y);
+    g2d.drawString("Lives: " + gameState.pacMan.getLives(), livesPosition.x, livesPosition.y);
   }
 
   private void drawPacMan(final Graphics2D g2d) {
@@ -498,7 +503,9 @@ public class GamePanel extends JPanel {
   }
 
   private void drawGhost(final Graphics2D g2d, final Ghost ghost) {
-    if (ghost.getState() == GhostState.FRIGHTENED) {
+    if (ghost.getState() == GhostState.EATEN) {
+      drawGhostEyes(g2d, ghost);
+    } else if (ghost.getState() == GhostState.FRIGHTENED) {
       g2d.setColor(Color.BLUE);
       drawGhostBody(g2d, ghost);
       drawGhostSkirt(g2d, ghost);
@@ -652,5 +659,9 @@ public class GamePanel extends JPanel {
 
   public Orientation getNextOrientation() {
     return gameKeyHandler.getNextOrientation();
+  }
+
+  public void resetUserInput() {
+    gameKeyHandler.resetInput();
   }
 }

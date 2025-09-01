@@ -21,11 +21,16 @@ public class GameLogic implements Runnable {
   }
 
   public void startGame() {
-    if (gameState.startGame()) {
-      gameFrame = new GameFrame(gameState);
-      startGameThread();
+    if (gameState.gameMap.isUsable()) {
+      if (gameState.startGame()) {
+        gameFrame = new GameFrame(gameState);
+        startGameThread();
+      } else {
+        throw new RuntimeException("Tried GameLogic.startGame() when game is already running");
+      }
     } else {
-      throw new RuntimeException("Tried GameLogic.startGame() when game is already running");
+      throw new RuntimeException(
+          "Tried GameLogic.startGame() when gameMap is not in a usable state.");
     }
   }
 
@@ -63,6 +68,34 @@ public class GameLogic implements Runnable {
     }
   }
 
+  private void checkCollisionWithGhosts() {
+    for (Ghost ghost : gameState.ghosts) {
+      if (ghostCollidesWithPacMan(ghost)) {
+        if (ghost.getState() == GhostState.FRIGHTENED) {
+          ghost.setState(GhostState.EATEN);
+          gameState.eatenGhosts++;
+          gameState.score +=
+              GameConfig.DEFAULT_GHOST_SCORE * (int) Math.pow(2, gameState.eatenGhosts);
+        } else if (ghost.getState() != GhostState.EATEN) {
+          gameState.pacMan.kill();
+          return;
+        }
+      }
+    }
+  }
+
+  private boolean ghostCollidesWithPacMan(final Ghost ghost) {
+    final Rectangle ghostHitBox = ghost.getHitBox();
+    final Rectangle pacManHitBox = gameState.pacMan.getHitBox();
+    final Rectangle collisionBox = ghostHitBox.intersection(pacManHitBox);
+    if (collisionBox.height >= 0 && collisionBox.width >= 0) {
+      final double collisionBoxArea = collisionBox.height * collisionBox.width;
+      final double tileArea = GameConfig.TILE_SIZE * GameConfig.TILE_SIZE;
+      return collisionBoxArea / tileArea >= 0.3;
+    }
+    return false;
+  }
+
   private void checkCollisionWithPellets() {
     if (gameState.pellets != null) {
       final Set<Pellet> eatenPellets = new HashSet<>();
@@ -92,18 +125,34 @@ public class GameLogic implements Runnable {
 
   private void update() {
     gameState.pacMan.update(gameFrame.getNextOrientation());
-    for (Ghost ghost : gameState.ghosts) {
-      ghost.update();
+    if (gameState.pacMan.isAlive()) {
+      for (Ghost ghost : gameState.ghosts) {
+        ghost.update();
+      }
+      checkCollisionWithGhosts();
+      if (gameState.pellets.isEmpty()) {
+        gameFrame.closeOnVictory();
+        if (gameState.stopGame()) {
+          stopGameThread();
+        } else {
+          throw new RuntimeException("Tried GameLogic.stopGameThread() when game is not running");
+        }
+      }
+      checkCollisionWithPellets();
     }
-    if (gameState.pellets.isEmpty()) {
-      gameFrame.closeOnVictory();
-      if (gameState.stopGame()) {
-        stopGameThread();
+    if (gameState.pacMan.isDeathAnimationFinished()) {
+      if (gameState.pacMan.getLives() == 0) {
+        gameFrame.closeOnDeath();
+        if (gameState.stopGame()) {
+          stopGameThread();
+        } else {
+          throw new RuntimeException("Tried GameLogic.stopGameThread() when game is not running");
+        }
       } else {
-        throw new RuntimeException("Tried GameLogic.stopGameThread() when game is not running");
+        gameState.resetLevel();
+        gameFrame.resetUserInput();
       }
     }
-    checkCollisionWithPellets();
     gameFrame.repaint();
   }
 }

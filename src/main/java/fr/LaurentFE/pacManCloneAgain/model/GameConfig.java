@@ -14,6 +14,7 @@ public class GameConfig {
   public static final double FPS = 60;
   public static final double DRAW_INTERVAL_NANOSEC = 1_000_000_000L / FPS;
   public static final int DEFAULT_MOVE_SPEED = TILE_SIZE / 8;
+  public static final int DEFAULT_LIVES = 10;
   public static final Position DEFAULT_PACMAN_POSITION = new TileIndex(13, 26).toPosition();
   public static final Orientation DEFAULT_ORIENTATION = Orientation.RIGHT;
   public static final Position DEFAULT_BLINKY_POSITION = new TileIndex(9, 14).toPosition();
@@ -30,6 +31,7 @@ public class GameConfig {
       DEFAULT_MAP_TILE_WIDTH - 1, DEFAULT_MAP_TILE_HEIGHT - 1);
   public static final TileIndex DEFAULT_CLYDE_SCATTER_TILE_INDEX = new TileIndex(0,
       DEFAULT_MAP_TILE_HEIGHT - 1);
+  public static final int DEFAULT_GHOST_SCORE = 100;
   public static final int DEFAULT_PELLET_SIZE = TILE_SIZE / 8;
   public static final int DEFAULT_PELLET_OFFSET = (TILE_SIZE - DEFAULT_PELLET_SIZE) / 2;
   public static final int DEFAULT_POWER_PELLET_SIZE = TILE_SIZE / 2;

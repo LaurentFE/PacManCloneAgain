@@ -45,4 +45,8 @@ public class GameKeyHandler implements KeyListener {
   public Orientation getNextOrientation() {
     return nextOrientation;
   }
+
+  public void resetInput() {
+    nextOrientation = null;
+  }
 }
