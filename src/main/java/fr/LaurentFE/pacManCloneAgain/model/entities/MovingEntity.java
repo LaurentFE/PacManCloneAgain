@@ -30,6 +30,10 @@ public abstract class MovingEntity {
     return orientation;
   }
 
+  public Rectangle getHitBox() {
+    return hitBox;
+  }
+
   protected void move() {
     if (orientation == Orientation.LEFT) {
       hitBox.x = hitBox.x - moveSpeed;
