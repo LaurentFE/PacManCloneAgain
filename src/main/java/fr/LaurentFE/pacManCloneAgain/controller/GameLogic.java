@@ -69,7 +69,7 @@ public class GameLogic implements Runnable {
   }
 
   private void checkCollisionWithGhosts() {
-    for (Ghost ghost : gameState.ghosts) {
+    for (final Ghost ghost : gameState.ghosts) {
       if (ghostCollidesWithPacMan(ghost)) {
         if (ghost.getState() == GhostState.FRIGHTENED) {
           ghost.setState(GhostState.EATEN);
@@ -99,7 +99,7 @@ public class GameLogic implements Runnable {
   private void checkCollisionWithPellets() {
     if (gameState.pellets != null) {
       final Set<Pellet> eatenPellets = new HashSet<>();
-      for (Pellet pellet : gameState.pellets) {
+      for (final Pellet pellet : gameState.pellets) {
         final Rectangle pelletHitBox = pellet.getHitBox();
         final Rectangle pacManHitBox = gameState.pacMan.getHitBox();
         if (pelletHitBox.intersection(pacManHitBox).getSize().equals(pelletHitBox.getSize())) {
@@ -110,7 +110,7 @@ public class GameLogic implements Runnable {
           }
         }
       }
-      for (Pellet pellet : eatenPellets) {
+      for (final Pellet pellet : eatenPellets) {
         gameState.pellets.remove(pellet);
       }
     }
@@ -118,7 +118,7 @@ public class GameLogic implements Runnable {
 
   private void frightenGhosts() {
     gameState.eatenGhosts = 0;
-    for (Ghost ghost : gameState.ghosts) {
+    for (final Ghost ghost : gameState.ghosts) {
       ghost.setState(GhostState.FRIGHTENED);
     }
   }
@@ -126,7 +126,7 @@ public class GameLogic implements Runnable {
   private void update() {
     gameState.pacMan.update(gameFrame.getNextOrientation());
     if (gameState.pacMan.isAlive()) {
-      for (Ghost ghost : gameState.ghosts) {
+      for (final Ghost ghost : gameState.ghosts) {
         ghost.update();
       }
       checkCollisionWithGhosts();

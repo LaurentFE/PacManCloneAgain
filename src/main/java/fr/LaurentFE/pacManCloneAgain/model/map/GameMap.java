@@ -163,7 +163,7 @@ public class GameMap {
   }
 
   public String toString() {
-    StringBuilder response = new StringBuilder();
+    final StringBuilder response = new StringBuilder();
     for (int y = 0; y < mapHeightTile; y++) {
       for (int x = 0; x < mapWidthTile; x++) {
         final TileType tileType = map[y][x];
