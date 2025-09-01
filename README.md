@@ -1,14 +1,7 @@
 # Pac-Man clone, again, in Java
 
 ## State of the project
-Target results achieved :
-- Have a fully navigable maze
-- Pac-Man can be moved around the maze, respecting constraints
-- 4 Ghosts chase Pac-Man with different behaviours to reach him
-- Ghosts can chase, disperse, be frightened
-- Pac-Man can eat pellets to increase score
-- Pac-Man can eat a power pellet to make them frightened
-- Game is finished when all pellets have been eaten
+All originally intended features are now implemented.
 
 ## Context of the project
 ### WHAT
@@ -33,7 +26,8 @@ The target result is :
 - Pac-Man can be moved around the maze, respecting constraints
 - 4 Ghosts chase Pac-Man with different behaviours to reach him
 - Ghosts can chase, disperse, be frightened, and go resurrect at their base
+- Ghosts can kill Pac-Man if they catch him
 - Pac-Man can eat pellets to increase score
 - Pac-Man can eat a power pellet to make them frightened
 - Pac-Man can eat a frightened ghost, increasing score and forcing the ghost to go resurrect at their base
-- Game is finished when all pellets have been eaten
+- Game is finished when all pellets have been eaten or all lives are lost

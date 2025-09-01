@@ -25,6 +25,7 @@ public class GameState {
   public GameState() {
     gameMap = new GameMap(GameConfig.DEFAULT_MAP_TILE_HEIGHT,
         GameConfig.DEFAULT_MAP_TILE_WIDTH);
+    gameMap.loadMap(GameConfig.DEFAULT_MAP_PATH);
     pellets = gameMap.loadPellets(GameConfig.DEFAULT_PELLET_MAP_PATH);
     isRunning = false;
     ghosts = new HashSet<>();
@@ -34,12 +35,19 @@ public class GameState {
   }
 
   private void instantiateEntities() {
+    final int lives;
+    if (pacMan == null) {
+      lives = GameConfig.DEFAULT_LIVES;
+    } else {
+      lives = pacMan.getLives();
+    }
     pacMan = new PacMan(GameConfig.DEFAULT_PACMAN_POSITION, GameConfig.DEFAULT_ORIENTATION,
-        GameConfig.DEFAULT_MOVE_SPEED, gameMap);
+        GameConfig.DEFAULT_MOVE_SPEED, gameMap, lives);
     instantiateGhosts();
   }
 
   private void instantiateGhosts() {
+    ghosts.clear();
     ghosts.add(new Ghost(GameConfig.DEFAULT_BLINKY_POSITION, GameConfig.DEFAULT_ORIENTATION,
         Color.RED, new Blinky(this), gameMap, GameConfig.DEFAULT_BLINKY_SCATTER_TILE_INDEX,
         GameConfig.DEFAULT_MOVE_SPEED));
@@ -104,5 +112,9 @@ public class GameState {
       return true;
     }
     return false;
+  }
+
+  public void resetLevel() {
+    instantiateEntities();
   }
 }
