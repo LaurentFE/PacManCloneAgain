@@ -2,6 +2,7 @@ package fr.LaurentFE.pacManCloneAgain.model;
 
 import fr.LaurentFE.pacManCloneAgain.model.entities.Ghost;
 import fr.LaurentFE.pacManCloneAgain.model.entities.PacMan;
+import fr.LaurentFE.pacManCloneAgain.model.entities.Pellet;
 import fr.LaurentFE.pacManCloneAgain.model.entities.ghostPersonality.Blinky;
 import fr.LaurentFE.pacManCloneAgain.model.entities.ghostPersonality.Clyde;
 import fr.LaurentFE.pacManCloneAgain.model.entities.ghostPersonality.Inky;
@@ -17,13 +18,19 @@ public class GameState {
   private boolean isRunning;
   public PacMan pacMan;
   public final Set<Ghost> ghosts;
+  public final Set<Pellet> pellets;
+  public int score;
+  public int eatenGhosts;
 
   public GameState() {
     gameMap = new GameMap(GameConfig.DEFAULT_MAP_TILE_HEIGHT,
         GameConfig.DEFAULT_MAP_TILE_WIDTH);
+    pellets = gameMap.loadPellets(GameConfig.DEFAULT_PELLET_MAP_PATH);
     isRunning = false;
     ghosts = new HashSet<>();
     instantiateEntities();
+    score = 0;
+    eatenGhosts = 0;
   }
 
   private void instantiateEntities() {

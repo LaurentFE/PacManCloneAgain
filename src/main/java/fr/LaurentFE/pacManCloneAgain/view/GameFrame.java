@@ -12,9 +12,11 @@ import javax.swing.WindowConstants;
 public class GameFrame extends JFrame {
 
   private final GamePanel mainDisplay;
+  private final GameState gameState;
 
   public GameFrame(final GameState gameState) {
     super("Pac-Man clone");
+    this.gameState = gameState;
     setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     setResizable(false);
     addWindowClosingListener();
@@ -43,6 +45,19 @@ public class GameFrame extends JFrame {
     if (exitValue == JOptionPane.YES_OPTION) {
       dispose();
     }
+  }
+
+  public void closeOnVictory() {
+    JOptionPane.showMessageDialog(
+        null,
+        """
+            Congratulations !
+            You have eaten all the pellets on the map.
+            Victory is yours !
+            You got a score of :\s""" + gameState.score,
+        "VICTORY",
+        JOptionPane.INFORMATION_MESSAGE);
+    dispose();
   }
 
   public Orientation getNextOrientation() {

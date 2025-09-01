@@ -10,6 +10,7 @@ public class GameConfig {
   public static final int DEFAULT_MAP_TILE_HEIGHT = 36;
   public static final int DEFAULT_MAP_TILE_WIDTH = 28;
   public static final String DEFAULT_MAP_PATH = "./src/main/resources/level0";
+  public static final String DEFAULT_PELLET_MAP_PATH = "./src/main/resources/level0_pellets";
   public static final double FPS = 60;
   public static final double DRAW_INTERVAL_NANOSEC = 1_000_000_000L / FPS;
   public static final int DEFAULT_MOVE_SPEED = TILE_SIZE / 8;
@@ -23,7 +24,14 @@ public class GameConfig {
   public static final long SCATTER_NANO_TIME_DURATION = 3_000_000_000L;
   public static final long FRIGHTENED_NANO_TIME_DURATION = 5_000_000_000L;
   public static final TileIndex DEFAULT_BLINKY_SCATTER_TILE_INDEX = new TileIndex(0, 0);
-  public static final TileIndex DEFAULT_PINKY_SCATTER_TILE_INDEX = new TileIndex(DEFAULT_MAP_TILE_WIDTH - 1, 0);
-  public static final TileIndex DEFAULT_INKY_SCATTER_TILE_INDEX = new TileIndex(DEFAULT_MAP_TILE_WIDTH - 1, DEFAULT_MAP_TILE_HEIGHT - 1);
-  public static final TileIndex DEFAULT_CLYDE_SCATTER_TILE_INDEX = new TileIndex(0, DEFAULT_MAP_TILE_HEIGHT - 1);
+  public static final TileIndex DEFAULT_PINKY_SCATTER_TILE_INDEX = new TileIndex(
+      DEFAULT_MAP_TILE_WIDTH - 1, 0);
+  public static final TileIndex DEFAULT_INKY_SCATTER_TILE_INDEX = new TileIndex(
+      DEFAULT_MAP_TILE_WIDTH - 1, DEFAULT_MAP_TILE_HEIGHT - 1);
+  public static final TileIndex DEFAULT_CLYDE_SCATTER_TILE_INDEX = new TileIndex(0,
+      DEFAULT_MAP_TILE_HEIGHT - 1);
+  public static final int DEFAULT_PELLET_SIZE = TILE_SIZE / 8;
+  public static final int DEFAULT_PELLET_OFFSET = (TILE_SIZE - DEFAULT_PELLET_SIZE) / 2;
+  public static final int DEFAULT_POWER_PELLET_SIZE = TILE_SIZE / 2;
+  public static final int DEFAULT_POWER_PELLET_OFFSET = (TILE_SIZE - DEFAULT_POWER_PELLET_SIZE) / 2;
 }

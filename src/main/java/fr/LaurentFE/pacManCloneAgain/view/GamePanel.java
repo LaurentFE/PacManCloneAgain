@@ -3,12 +3,15 @@ package fr.LaurentFE.pacManCloneAgain.view;
 import fr.LaurentFE.pacManCloneAgain.model.GameConfig;
 import fr.LaurentFE.pacManCloneAgain.model.GameState;
 import fr.LaurentFE.pacManCloneAgain.model.entities.Ghost;
+import fr.LaurentFE.pacManCloneAgain.model.entities.GhostState;
 import fr.LaurentFE.pacManCloneAgain.model.entities.Orientation;
+import fr.LaurentFE.pacManCloneAgain.model.entities.Pellet;
 import fr.LaurentFE.pacManCloneAgain.model.map.Position;
 import fr.LaurentFE.pacManCloneAgain.model.map.TileIndex;
 import fr.LaurentFE.pacManCloneAgain.model.map.TileType;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
@@ -34,6 +37,8 @@ public class GamePanel extends JPanel {
     Graphics2D g2d = (Graphics2D) g;
 
     drawMap(g2d);
+    drawPellets(g2d);
+    drawHUD(g2d);
     drawPacMan(g2d);
     drawGhosts(g2d);
   }
@@ -440,6 +445,32 @@ public class GamePanel extends JPanel {
     g2d.drawLine(x1, y * GameConfig.TILE_SIZE, x1, (y + 1) * GameConfig.TILE_SIZE);
   }
 
+  private void drawPellets(final Graphics2D g2d) {
+    g2d.setColor(Color.PINK);
+    for (Pellet pellet : gameState.pellets) {
+      final Position pelletPosition = pellet.getTileIndex().toPosition();
+      if (pellet.isPowerPellet()) {
+        g2d.fillOval(pelletPosition.x + GameConfig.DEFAULT_POWER_PELLET_OFFSET,
+            pelletPosition.y + GameConfig.DEFAULT_POWER_PELLET_OFFSET,
+            GameConfig.DEFAULT_POWER_PELLET_SIZE,
+            GameConfig.DEFAULT_POWER_PELLET_SIZE);
+      } else {
+        g2d.fillRect(pelletPosition.x + GameConfig.DEFAULT_PELLET_OFFSET,
+            pelletPosition.y + GameConfig.DEFAULT_PELLET_OFFSET,
+            GameConfig.DEFAULT_PELLET_SIZE,
+            GameConfig.DEFAULT_PELLET_SIZE);
+      }
+    }
+  }
+
+  private void drawHUD(final Graphics2D g2d) {
+    final Position scorePosition = new TileIndex(gameState.gameMap.getMapWidthTile() / 2 - 2,
+        2).toPosition();
+    g2d.setColor(Color.WHITE);
+    g2d.setFont(new Font("Power Red And Green", Font.PLAIN, GameConfig.TILE_SIZE));
+    g2d.drawString("Score: " + gameState.score, scorePosition.x, scorePosition.y);
+  }
+
   private void drawPacMan(final Graphics2D g2d) {
     final int mouthStartAngle;
     g2d.setColor(Color.YELLOW);
@@ -467,10 +498,17 @@ public class GamePanel extends JPanel {
   }
 
   private void drawGhost(final Graphics2D g2d, final Ghost ghost) {
-    g2d.setColor(ghost.getColor());
-    drawGhostBody(g2d, ghost);
-    drawGhostSkirt(g2d, ghost);
-    drawGhostEyes(g2d, ghost);
+    if (ghost.getState() == GhostState.FRIGHTENED) {
+      g2d.setColor(Color.BLUE);
+      drawGhostBody(g2d, ghost);
+      drawGhostSkirt(g2d, ghost);
+      drawGhostScaredFace(g2d, ghost);
+    } else {
+      g2d.setColor(ghost.getColor());
+      drawGhostBody(g2d, ghost);
+      drawGhostSkirt(g2d, ghost);
+      drawGhostEyes(g2d, ghost);
+    }
   }
 
   private void drawGhostBody(final Graphics2D g2d, final Ghost ghost) {
@@ -569,6 +607,47 @@ public class GamePanel extends JPanel {
       pupilOrientationOffset = new Position(0, 0);
     }
     return new Position[]{eyeOrientationOffset, pupilOrientationOffset};
+  }
+
+  private void drawGhostScaredFace(final Graphics2D g2d, final Ghost ghost) {
+    g2d.setColor(Color.PINK);
+    final int eyeSize = 2 * GameConfig.TILE_SIZE / 16;
+    Position leftEyePosition = new Position(ghost.getPosition().x + 5 * GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().y + 6 * GameConfig.TILE_SIZE / 16);
+    Position rightEyeOffset = new Position(3 * GameConfig.TILE_SIZE / 16 + eyeSize, 0);
+    Position rightEyePosition = rightEyeOffset.add(leftEyePosition);
+    g2d.fillRect(leftEyePosition.x,
+        leftEyePosition.y,
+        eyeSize, eyeSize);
+    g2d.fillRect(rightEyePosition.x,
+        rightEyePosition.y,
+        eyeSize, eyeSize);
+    Position mouthLeftCorner = new Position(ghost.getPosition().x + 3 * GameConfig.TILE_SIZE / 16,
+        ghost.getPosition().y + 11 * GameConfig.TILE_SIZE / 16);
+    g2d.drawLine(mouthLeftCorner.x,
+        mouthLeftCorner.y,
+        mouthLeftCorner.x + GameConfig.TILE_SIZE / 16,
+        mouthLeftCorner.y - GameConfig.TILE_SIZE / 16);
+    g2d.drawLine(mouthLeftCorner.x + GameConfig.TILE_SIZE / 16,
+        mouthLeftCorner.y - GameConfig.TILE_SIZE / 16,
+        mouthLeftCorner.x + 3 * GameConfig.TILE_SIZE / 16,
+        mouthLeftCorner.y);
+    g2d.drawLine(mouthLeftCorner.x + 3 * GameConfig.TILE_SIZE / 16,
+        mouthLeftCorner.y,
+        mouthLeftCorner.x + 5 * GameConfig.TILE_SIZE / 16,
+        mouthLeftCorner.y - GameConfig.TILE_SIZE / 16);
+    g2d.drawLine(mouthLeftCorner.x + 5 * GameConfig.TILE_SIZE / 16,
+        mouthLeftCorner.y - GameConfig.TILE_SIZE / 16,
+        mouthLeftCorner.x + 7 * GameConfig.TILE_SIZE / 16,
+        mouthLeftCorner.y);
+    g2d.drawLine(mouthLeftCorner.x + 7 * GameConfig.TILE_SIZE / 16,
+        mouthLeftCorner.y,
+        mouthLeftCorner.x + 9 * GameConfig.TILE_SIZE / 16,
+        mouthLeftCorner.y - GameConfig.TILE_SIZE / 16);
+    g2d.drawLine(mouthLeftCorner.x + 9 * GameConfig.TILE_SIZE / 16,
+        mouthLeftCorner.y - GameConfig.TILE_SIZE / 16,
+        mouthLeftCorner.x + 10 * GameConfig.TILE_SIZE / 16,
+        mouthLeftCorner.y);
   }
 
   public Orientation getNextOrientation() {

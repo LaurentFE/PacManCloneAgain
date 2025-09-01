@@ -45,6 +45,10 @@ public class Ghost extends MovingEntity {
     return chasePersonality;
   }
 
+  public GhostState getState() {
+    return state;
+  }
+
   public void update() {
     updateState();
     if (!mustChangeDirection()) {
@@ -224,7 +228,7 @@ public class Ghost extends MovingEntity {
     return Orientation.DOWN;
   }
 
-  public TileIndex getNextMoveTile(TileIndex targetTile) {
+  public TileIndex getNextMoveTile(final TileIndex targetTile) {
     TileIndex finalTile = new TileIndex(0, 0);
     int squaredDist = Integer.MAX_VALUE;
     for (TileIndex consideredTile : getConsideredMoveTiles()) {
