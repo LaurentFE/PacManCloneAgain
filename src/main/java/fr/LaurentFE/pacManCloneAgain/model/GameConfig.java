@@ -14,7 +14,7 @@ public class GameConfig {
   public static final double FPS = 60;
   public static final double DRAW_INTERVAL_NANOSEC = 1_000_000_000L / FPS;
   public static final int DEFAULT_MOVE_SPEED = TILE_SIZE / 8;
-  public static final int DEFAULT_LIVES = 10;
+  public static final int DEFAULT_LIVES = 3;
   public static final Position DEFAULT_PACMAN_POSITION = new TileIndex(13, 26).toPosition();
   public static final Orientation DEFAULT_ORIENTATION = Orientation.RIGHT;
   public static final Position DEFAULT_BLINKY_POSITION = new TileIndex(9, 14).toPosition();
